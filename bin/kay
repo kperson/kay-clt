@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require 'kay'
+require 'colorize'
+
+command = ARGV[0]
+
+include Kay
+
+begin
+  if command == 'create'
+    options = CreateParse.parse(ARGV)
+    Create.new(options.name).run
+  end
+rescue SystemExit => e
+  exit
+rescue Exception => e
+  abort(e.message.red)
+end
