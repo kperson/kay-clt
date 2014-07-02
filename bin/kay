@@ -11,6 +11,9 @@ begin
   if command == 'create'
     options = CreateParse.parse(ARGV)
     Create.new(options.name).run
+  elsif command == 'register'
+    options = RegisterParse.parse(ARGV)
+    Register.new(options.host).run
   end
 rescue SystemExit => e
   exit
