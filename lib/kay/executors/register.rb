@@ -1,10 +1,15 @@
 require 'json'
+require 'fileutils'
 
 require_relative '../util/rest'
+require_relative '../util/file_io'
+require_relative '../util/git_utils'
 
 module Kay
 
   include Rest
+  include FileIO
+  include GitUtils
 
   class Register
 
@@ -18,8 +23,13 @@ module Kay
       print prompt
     end
 
-    def run
+    def validate
+      check_for_git_repo
+      prepare_git_ignore
+    end
 
+    def run
+      validate
       print_prompt 'Username:'
       user_name = STDIN.gets.chomp()
 
@@ -52,6 +62,8 @@ module Kay
       if !req['error'].nil?
         raise req['error']
       else
+        token = req['response']['token']
+        write_file_at('.kay', JSON.generate({ :host => @host, :token => token }))
       end
     end
 
