@@ -4,12 +4,14 @@ require 'fileutils'
 require_relative '../util/rest'
 require_relative '../util/file_io'
 require_relative '../util/git_utils'
+require_relative '../util/user_context'
 
 module Kay
 
   include Rest
   include FileIO
   include GitUtils
+  include UserContext
 
   class Register
 
@@ -62,8 +64,10 @@ module Kay
       if !req['error'].nil?
         raise req['error']
       else
-        token = req['response']['token']
-        write_file_at('.kay', JSON.generate({ :host => @host, :token => token }))
+        data = user_context
+        data[:host] = @host
+        data[:token] = req['response']['token']
+        write_file_at('.kay', JSON.generate(data))
       end
     end
 

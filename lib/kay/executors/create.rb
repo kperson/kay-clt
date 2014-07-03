@@ -1,10 +1,14 @@
 require 'json'
 
 require_relative '../util/rest'
+require_relative '../util/user_context'
+require_relative '../util/file_io'
 
 module Kay
 
   include Rest
+  include UserContext
+  include FileIO
 
   class Create
 
@@ -13,21 +17,21 @@ module Kay
     end
 
     def run
-      req = JSON.load(http_request('%s/%s' % [base_url, '/project/'], 'POST', { :name => @name }))
+      req = JSON.load(http_request('%s/%s' % [user_host, '/project/'], 'POST', { :name => @name }))
       if !req['error'].nil?
         raise req['error']
       else
         add_to_project(req['response']['git_url'])
+        data = user_context
+        raise 'please register or login' if user_token.nil? || user_host.nil?
+        data[:project_id] = req['response']['id']
+        write_file_at('.kay', JSON.generate(data))
       end
     end
 
     def add_to_project(git_url)
       command = 'git remote add kay %s' % [git_url]
       system command
-    end
-
-    def base_url
-      "http://192.168.59.103:49152"
     end
 
   end
