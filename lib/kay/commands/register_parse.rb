@@ -18,15 +18,11 @@ module Kay
           options.host = name
         end
 
-
       end
 
       opt_parser.parse!(args)
-
       self.validate(options)
-
       options
-
     end
 
     def self.validate(options)

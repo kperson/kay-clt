@@ -14,6 +14,9 @@ begin
   elsif command == 'register'
     options = RegisterParse.parse(ARGV)
     Register.new(options.host).run
+  elsif command == 'key-add'
+    options = KeyAddParse.parse(ARGV)
+    KeyAdd.new(options.file).run
   end
 rescue SystemExit => e
   exit
