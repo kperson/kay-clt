@@ -22,7 +22,7 @@ module Kay
         key_info = `ssh-keygen -lf #{ssh_file}`
         puts 'uploading key with fingerprint %s' % [key_info.split(' ')[1]]
         req = JSON.load(http_request(File.join(user_host, '/key/'), 'POST', { 'token' => user_token, 'key' => key_contents, 'key_name' => @key_name }))
-        puts req
+        raise req['error'] if !req['error'].nil?
       else
         raise '"%s" is not a valid public key' % [@file]
       end
