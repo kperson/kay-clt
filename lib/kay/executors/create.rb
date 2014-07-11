@@ -24,7 +24,7 @@ module Kay
         add_to_project(req['response']['git_url'])
         data = user_context
         raise 'please register or login' if user_token.nil? || user_host.nil?
-        data[:project_id] = req['response']['id']
+        data['project_id'] = req['response']['project_id']
         write_file_at('.kay', JSON.generate(data))
       end
     end

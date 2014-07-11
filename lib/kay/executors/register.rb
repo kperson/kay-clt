@@ -65,8 +65,8 @@ module Kay
         raise req['error']
       else
         data = user_context
-        data[:host] = @host
-        data[:token] = req['response']['token']
+        data['host'] = @host
+        data['token'] = req['response']['token']
         write_file_at('.kay', JSON.generate(data))
       end
     end
