@@ -31,6 +31,7 @@ module Kay
 
     def add_to_project(git_url)
       command = 'git remote add kay %s' % [git_url]
+      puts command
       system command
     end
 

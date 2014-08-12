@@ -17,6 +17,15 @@ begin
   elsif command == 'key-add'
     options = KeyAddParse.parse(ARGV)
     KeyAdd.new(options.file, options.name).run
+  elsif command == 'branch-add'
+    options = BranchAddParse.parse(ARGV)
+    BranchAdd.new(options.branch).run
+  elsif command == 'branch-remove'
+    options = BranchRemoveParse.parse(ARGV)
+    BranchRemove.new(options.branch).run
+  elsif command == 'env-add'
+    options = EnvAddParse.parse(ARGV)
+    EnvAdd.new(options.branch, options).run
   end
 rescue SystemExit => e
   exit
