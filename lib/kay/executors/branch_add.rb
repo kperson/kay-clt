@@ -17,7 +17,7 @@ module Kay
     end
 
     def run
-      req = JSON.load(http_request('%s/%s' % [user_host, '/project-branch-add/'], 'POST', { :branch => @branch, :project_id => project_id }))
+      req = JSON.load(http_request('%s/%s' % [user_host, '/branch/'], 'POST', { :branch => @branch, :project_id => project_id }))
       if !req['error'].nil?
         raise req['error']
       end

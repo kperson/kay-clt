@@ -17,7 +17,7 @@ module Kay
     end
 
     def run
-      req = JSON.load(http_request('%s/%s' % [user_host, '/project-branch-remove/'], 'POST', { :branch => @branch, :project_id => project_id }))
+      req = JSON.load(http_request('%s/%s' % [user_host, '/branch/'], 'DELETE', { :branch => @branch, :project_id => project_id }))
       if !req['error'].nil?
         raise req['error']
       end

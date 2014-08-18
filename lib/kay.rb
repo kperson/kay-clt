@@ -17,3 +17,9 @@ require_relative 'kay/executors/branch_remove'
 
 require_relative 'kay/commands/env_add_parse'
 require_relative 'kay/executors/env_add'
+
+require_relative 'kay/commands/login_parse'
+require_relative 'kay/executors/login'
+
+require_relative 'kay/commands/join_parse'
+require_relative 'kay/executors/join'

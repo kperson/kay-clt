@@ -26,6 +26,12 @@ begin
   elsif command == 'env-add'
     options = EnvAddParse.parse(ARGV)
     EnvAdd.new(options.branch, options).run
+  elsif command == 'login'
+    options = LoginParse.parse(ARGV)
+    Login.new(options.host).run
+  elsif command == 'join'
+    options = JoinParse.parse(ARGV)
+    Join.new(options.proj_id).run
   end
 rescue SystemExit => e
   exit
