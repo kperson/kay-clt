@@ -23,3 +23,6 @@ require_relative 'kay/executors/login'
 
 require_relative 'kay/commands/join_parse'
 require_relative 'kay/executors/join'
+
+require_relative 'kay/commands/scale_parse'
+require_relative 'kay/executors/scale'

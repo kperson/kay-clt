@@ -32,6 +32,9 @@ begin
   elsif command == 'join'
     options = JoinParse.parse(ARGV)
     Join.new(options.proj_id).run
+  elsif command == 'scale'
+    options = ScaleParse.parse(ARGV)
+    Scale.new(options.branch, options.app, options.instances).run
   end
 rescue SystemExit => e
   exit
