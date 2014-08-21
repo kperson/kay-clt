@@ -35,6 +35,10 @@ begin
   elsif command == 'scale'
     options = ScaleParse.parse(ARGV)
     Scale.new(options.branch, options.app, options.instances).run
+  else
+    command_list = ['create', 'register', 'key-add', 'branch-add', 'branch-remove', 'env-add', 'login', 'join', 'scale']
+    puts "Available Commands: \n\n%s\n\nkay <command> --help for assitance" % [command_list.join("\n")]
+
   end
 rescue SystemExit => e
   exit
