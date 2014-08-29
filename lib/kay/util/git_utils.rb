@@ -1,6 +1,7 @@
 require 'fileutils'
 
 require_relative 'file_io'
+require_relative '../util/git_utils'
 
 module GitUtils
 
@@ -19,6 +20,10 @@ module GitUtils
   end
 
 
+  def has_git_remote(branch_name)
+    `git remote`.split("\n").include?(branch_name)
+  end
+
   def prepare_git_ignore
     contents = File.exists?('.gitignore') ? file_at('.gitignore') : ''
     if !contents.split("\n").include?('.kay')
@@ -26,5 +31,6 @@ module GitUtils
       write_file_at('.gitignore', git_contents)
     end
   end
+
 
 end

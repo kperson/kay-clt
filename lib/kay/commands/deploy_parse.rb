@@ -4,28 +4,23 @@ require_relative '../util/struct'
 
 module Kay
 
-  class EnvAddParse
+  class DeployParse
 
     @@branch = '--branch <branch>'
-    @@keys = '--keys <keys>'
-    @@values = '--values <values>'
+    @@version = '--version <version>'
 
     def self.parse(args)
       options = base_struct
       opt_parser = OptionParser.new do |opts|
 
-        opts.banner = 'Usage: kay env-add [options]'
+        opts.banner = 'Usage: kay deploy [options]'
 
         opts.on(@@branch, String, 'name of branch') do |branch|
           options.branch = branch
         end
 
-        opts.on(@@keys, Array, 'keys for env') do |keys|
-          options.keys = keys
-        end
-
-        opts.on(@@values, Array, 'values for env') do |values|
-         options.values = values
+        opts.on(@@version, String, 'version to deploy') do |version|
+          options.version = version
         end
 
       end
@@ -36,10 +31,8 @@ module Kay
     end
 
     def self.validate(options)
-
       raise '%s required' % [@@branch] if options[:branch].nil?
-      raise '%s required' % [@@keys] if options[:keys].nil?
-      raise '%s required' % [@@values] if options[:values].nil?
+      raise '%s required' % [@@version] if options[:version].nil?
     end
 
   end

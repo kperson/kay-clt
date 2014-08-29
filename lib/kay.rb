@@ -26,3 +26,9 @@ require_relative 'kay/executors/join'
 
 require_relative 'kay/commands/scale_parse'
 require_relative 'kay/executors/scale'
+
+require_relative 'kay/commands/docker_parse'
+require_relative 'kay/executors/docker'
+
+require_relative 'kay/commands/deploy_parse'
+require_relative 'kay/executors/deploy'

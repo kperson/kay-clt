@@ -35,8 +35,14 @@ begin
   elsif command == 'scale'
     options = ScaleParse.parse(ARGV)
     Scale.new(options.branch, options.app, options.instances).run
+  elsif command == 'docker'
+    options = DockerParse.parse(ARGV)
+    Docker.new(options.image, options.opts, options.cmd, options.env, options.num_ports).run
+  elsif command == 'deploy'
+    options = DeployParse.parse(ARGV)
+    Deploy.new(options.branch, options.version).run
   else
-    command_list = ['create', 'register', 'key-add', 'branch-add', 'branch-remove', 'env-add', 'login', 'join', 'scale']
+    command_list = ['create', 'register', 'key-add', 'branch-add', 'branch-remove', 'env-add', 'login', 'join', 'scale', 'docker', 'deploy']
     puts "Available Commands: \n\n%s\n\nkay <command> --help for assitance" % [command_list.join("\n")]
 
   end

@@ -30,9 +30,12 @@ module Kay
     end
 
     def add_to_project(git_url)
+      if has_git_remote('kay')
+        system 'git remote remove kay'
+      end
       command = 'git remote add kay %s' % [git_url]
-      puts command
       system command
+      puts 'Remote added'
     end
 
   end

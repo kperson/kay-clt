@@ -3,12 +3,14 @@ require 'json'
 require_relative '../util/rest'
 require_relative '../util/user_context'
 require_relative '../util/file_io'
+require_relative '../util/git_utils'
 
 module Kay
 
   include Rest
   include UserContext
   include FileIO
+
 
   class Join
 
@@ -17,7 +19,6 @@ module Kay
     end
 
     def run
-      puts @project_id
       req = JSON.load(http_request('%s/%s/%s/' % [user_host, '/project/', @project_id], 'GET'))
       if !req['error'].nil?
         raise req['error']
@@ -31,9 +32,12 @@ module Kay
     end
 
     def add_to_project(git_url)
+      if has_git_remote('kay')
+        system 'git remote remove kay'
+      end
       command = 'git remote add kay %s' % [git_url]
-      puts command
       system command
+      puts 'Remote added'
     end
 
   end
