@@ -11,29 +11,33 @@ module Kay
 
   class Docker
 
-    def initialize(image, options, cmd, env, num_ports)
+    def initialize(image, options, cmd, env, num_ports, name, id)
       @image = image
       @options = options
       @env = env
       @cmd = cmd
       @num_ports = num_ports
+      @name = name
+      @id = id
     end
 
     def run
-      puts @num_ports
       deploy_command = {
         :cmd => @cmd,
         :container => { :image => 'docker:///' + @image, :options => @options },
         :mem => 512,
-        :cpus => 1,
+        :cpus => 0.5,
         :instances => 1,
         :executor => "",
         :uris => [],
         :env => @env,
-        :ports => (0...@num_ports).map { |x| 0 }
+        :ports => (0...@num_ports).map { |x| 0 },
+        :name => @name,
+        :id => @id
       }
       body = JSON.generate(deploy_command)
-      puts body
+      JSON.load(http_request('%s/docker/' % [user_host] , 'POST', { }, { }, body))
+      puts 'deploying image: %s' % [@image]
     end
 
   end

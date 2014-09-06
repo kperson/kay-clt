@@ -32,3 +32,6 @@ require_relative 'kay/executors/docker'
 
 require_relative 'kay/commands/deploy_parse'
 require_relative 'kay/executors/deploy'
+
+require_relative 'kay/commands/versions_parse'
+require_relative 'kay/executors/versions'

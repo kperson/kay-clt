@@ -4,9 +4,10 @@ require_relative '../util/struct'
 
 module Kay
 
-  class VersionsParse
+  class DeployParse
 
     @@branch = '--branch <branch>'
+    @@version = '--version <version>'
 
     def self.parse(args)
       options = base_struct
@@ -18,6 +19,10 @@ module Kay
           options.branch = branch
         end
 
+        opts.on(@@version, String, 'version to deploy') do |version|
+          options.version = version
+        end
+
       end
 
       opt_parser.parse!(args)
@@ -27,6 +32,7 @@ module Kay
 
     def self.validate(options)
       raise '%s required' % [@@branch] if options[:branch].nil?
+      raise '%s required' % [@@version] if options[:version].nil?
     end
 
   end

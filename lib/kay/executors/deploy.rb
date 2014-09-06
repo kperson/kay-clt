@@ -12,7 +12,7 @@ module Kay
 
     def initialize(branch, version)
       @branch = branch
-      @verison = version
+      @version = version
     end
 
     def run
@@ -20,7 +20,7 @@ module Kay
       if !req['error'].nil?
         raise req['error']
       else
-        '%s deploying' % [@version]
+        puts 'deploying %s of %s' % [@version, project_id]
       end
     end
 
